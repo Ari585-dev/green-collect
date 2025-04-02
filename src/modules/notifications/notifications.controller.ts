@@ -6,7 +6,7 @@ export class NotificationsController {
 
     constructor(private notificationsService: NotificationsService){}
 
-    @Get('/sendWh')
+    @Post('/sendWh')
     sendWhatssappMessage() {
         return this.notificationsService.sendWhatssappMessage();
     }
