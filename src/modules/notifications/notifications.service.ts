@@ -3,7 +3,7 @@ import * as Twilio from 'twilio';
 
 @Injectable()
 export class NotificationsService {
-    sendWhatssappMessage() {
+    sendWhatssappMessage(/*phone*/) {
         const accountSid = process.env.TWILIO_ACCOUNT_SID;
         const authToken = process.env.TWILIO_AUTH_TOKEN;
         const twilioNumber = process.env.TWILIONUMBER; // Asegúrate de que sea un número válido de Twilio
