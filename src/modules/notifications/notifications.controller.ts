@@ -1,13 +1,15 @@
-import { Controller, Get, Post } from '@nestjs/common';
+import { Controller, Post, Body, BadRequestException } from '@nestjs/common';
 import { NotificationsService } from './notifications.service';
 
 @Controller('')
 export class NotificationsController {
 
     constructor(private notificationsService: NotificationsService){}
-
-    @Get('/sendWh')
-    sendWhatssappMessage() {
-        return this.notificationsService.sendWhatssappMessage();
-    }
+    @Post('/sendWh')
+      async sendWhatssappMessage(@Body() body: { phone:string }) {
+        const {phone} = body;
+      
+      
+        return this.notificationsService.sendWhatssappMessage({phone}); 
+      }
 }
