@@ -39,7 +39,7 @@ export class AuthService {
         throw new Error('Credenciales incorrectas');
       }
   
-      // Comparamos passwd con hash
+      // Comparacion con hash
       const valid = await bcrypt.compare(password, user[0].password_hash);
       if (!valid) {
         throw new Error('Credenciales incorrectas');
