@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Registro | Green Collect</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col justify-between">
+
+  <!-- Cabecera -->
+  <header class="bg-white shadow-md p-4 flex justify-between items-center">
+    <div class="flex items-center space-x-2">
+      <span class="text-green-700 text-2xl">🌱</span>
+      <span class="text-green-900 font-bold text-lg">EcoPrisma</span>
+    </div>
+    <nav class="space-x-6">
+      <a href="#nosotros" class="text-green-800 hover:text-green-600 font-medium">Nosotros</a>
+      <a href="#contacto" class="text-green-800 hover:text-green-600 font-medium">Contáctenos</a>
+      <a href="#servicios" class="text-green-800 hover:text-green-600 font-medium">Servicios</a>
+    </nav>
+  </header>
+
+<!-- Interfaz de Usuario -->
+<main class="flex-grow flex items-center justify-center mt-10">
+  <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-4xl">
+    <h2 class="text-2xl font-bold mb-6 text-center text-green-700">Módulo de Reportes <span id="userId"></span> </h2>    
+    
+    <!-- crea un formulario con filtro por intervalo de fechas -->
+     <form id="reportForm">
+      <div class="mb-4">
+        <label for="startDate" class="block text-sm font-semibold text-green-900 mb-1">Fecha de inicio</label>
+        <input type="date" id="startDate" class="w-full p-2 rounded border border-gray-300" required />
+      </div>
+      <div class="mb-4">
+        <label for="endDate" class="block text-sm font-semibold text-green-900 mb-1">Fecha de fin</label>
+        <input type="date" id="endDate" class="w-full p-2 rounded border border-gray-300" required />
+      </div>
+      <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-2 rounded">
+        Generar Reporte
+      </button>
+    </form>
+    <br>
+    <br>
+
+
+    <!-- back -->
+    <div class="mt-4 text-center">
+      <button type="button" id="toBackBtn" class="text-green-600 hover:underline">Volver</button>
+    </div>
+
+    <div id="message" class="mt-3 text-center text-sm"></div>
+  </div>
+</main>
+
+
+  <!-- Footer -->
+  <footer class="bg-white shadow p-6 mt-10">
+    <div class="container mx-auto grid grid-cols-1 md:grid-cols-4 gap-6 text-sm text-gray-600">
+      <div>
+        <p class="font-bold mb-2">Síguenos en</p>
+        <div class="flex space-x-3 text-xl text-gray-500">
+          <a href="#"><i class="fab fa-facebook"></i>📘</a>
+          <a href="#"><i class="fab fa-youtube"></i>▶️</a>
+          <a href="#"><i class="fab fa-instagram"></i>📸</a>
+        </div>
+      </div>
+      <div>
+        <p class="font-bold mb-2">Recolectamos</p>
+        <ul>
+          <li><a href="#" class="hover:underline">Orgánicos</a></li>
+          <li><a href="#" class="hover:underline">Inorgánicos reciclables</a></li>
+          <li><a href="#" class="hover:underline">Peligrosos</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="font-bold mb-2">Trabaja con nosotros</p>
+        <ul>
+          <li><a href="#" class="hover:underline">Ofertas empleo</a></li>
+          <li><a href="#" class="hover:underline">Personas</a></li>
+          <li><a href="#" class="hover:underline">Corporativos</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="font-bold mb-2">Ayuda</p>
+        <ul>
+          <li><a href="#" class="hover:underline">Preguntas frecuentes</a></li>
+          <li><a href="#" class="hover:underline">Contacto</a></li>
+          <li><a href="#" class="hover:underline">PQRS</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    
+    // const message = document.getElementById('message');
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const name = urlParams.get('name');
+    const userId = urlParams.get('userId');
+
+    // console.log('😸', userId);  
+
+    toBackBtn.addEventListener('click', () => {
+      window.location.href = `/userview.html?name=${encodeURIComponent(name)}&userId=${encodeURIComponent(userId)}`;
+    });
+
+    // form.addEventListener('submit', async (e) => {      
+    // });
+  </script>
+</body>
+</html>

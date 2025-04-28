@@ -5,11 +5,15 @@ import { NotificationsService } from './notifications.service';
 export class NotificationsController {
 
     constructor(private notificationsService: NotificationsService){}
+
     @Post('/sendWh')
-      async sendWhatssappMessage(@Body() body: { phone:string }) {
-        const {phone} = body;
-      
-      
-        return this.notificationsService.sendWhatssappMessage({phone}); 
-      }
+    async sendWhatssappMessage(@Body() body: { phone: string, msg: string }) {
+        const { phone, msg } = body;
+
+        if (!phone || !msg) {
+            throw new BadRequestException('Phone y msg son requeridos');
+        }
+
+        return this.notificationsService.sendWhatssappMessage({ phone, msg });
+    }
 }
