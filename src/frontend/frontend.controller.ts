@@ -23,4 +23,14 @@ export class FrontendController {
   getView(@Res() res: Response) {
     return res.sendFile(join(__dirname, '..', '..', 'public', 'userview.html'));
   }
+
+  @Get('/recollection')
+  getRecollection(@Res() res: Response) {
+    return res.sendFile(join(__dirname, '..', '..', 'public', 'recollection.html'));
+  }
+
+  @Get('/reports')
+  getReports(@Res() res: Response) {
+    return res.sendFile(join(__dirname, '..', '..', 'public', 'reports.html'));
+  }
 }

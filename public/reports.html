@@ -24,21 +24,29 @@
 <!-- Interfaz de Usuario -->
 <main class="flex-grow flex items-center justify-center mt-10">
   <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-4xl">
-    <h2 class="text-2xl font-bold mb-6 text-center text-green-700">Bienvenido <span id="user_name"></span> </h2>    
+    <h2 class="text-2xl font-bold mb-6 text-center text-green-700">Módulo de Reportes <span id="userId"></span> </h2>    
     
-    <button type="button" id="progRecollection" class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-2 rounded">
-      Programar recolección
-    </button>
-    
+    <!-- crea un formulario con filtro por intervalo de fechas -->
+     <form id="reportForm">
+      <div class="mb-4">
+        <label for="startDate" class="block text-sm font-semibold text-green-900 mb-1">Fecha de inicio</label>
+        <input type="date" id="startDate" class="w-full p-2 rounded border border-gray-300" required />
+      </div>
+      <div class="mb-4">
+        <label for="endDate" class="block text-sm font-semibold text-green-900 mb-1">Fecha de fin</label>
+        <input type="date" id="endDate" class="w-full p-2 rounded border border-gray-300" required />
+      </div>
+      <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-2 rounded">
+        Generar Reporte
+      </button>
+    </form>
     <br>
     <br>
 
-    <button type="button" id="genrepoBtn" class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-2 rounded">
-      Generar Reporte
-    </button>
 
+    <!-- back -->
     <div class="mt-4 text-center">
-      <button type="button" id="logoutBtn" class="text-green-600 hover:underline">Cerrar sesión</button>
+      <button type="button" id="toBackBtn" class="text-green-600 hover:underline">Volver</button>
     </div>
 
     <div id="message" class="mt-3 text-center text-sm"></div>
@@ -91,21 +99,11 @@
     const urlParams = new URLSearchParams(window.location.search);
     const name = urlParams.get('name');
     const userId = urlParams.get('userId');
-    document.getElementById('user_name').textContent = name;
 
-    // console.log('😸', userId);
-  
+    // console.log('😸', userId);  
 
-    logoutBtn.addEventListener('click', () => {
-      window.location.href = '/index.html';
-    });
-
-    progRecollection.addEventListener('click', () => {
-      window.location.href = `/recollection.html?name=${encodeURIComponent(name)}&userId=${encodeURIComponent(userId)}`; 
-    });
-
-    genrepoBtn.addEventListener('click', () => {
-      window.location.href = `/reports.html?name=${encodeURIComponent(name)}&userId=${encodeURIComponent(userId)}`;
+    toBackBtn.addEventListener('click', () => {
+      window.location.href = `/userview.html?name=${encodeURIComponent(name)}&userId=${encodeURIComponent(userId)}`;
     });
 
     // form.addEventListener('submit', async (e) => {      
