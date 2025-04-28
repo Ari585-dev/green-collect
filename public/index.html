@@ -124,7 +124,7 @@
           throw new Error(data.message || 'Error al iniciar sesión');
         }
 
-        console.log(data)
+        // console.log('😺', data)
 
         localStorage.setItem('token', data.token);        
         // message.textContent = 'Inicio de sesión exitoso';
@@ -132,7 +132,8 @@
         // message.classList.add('text-green-600');
 
         const name = data.user.name;
-        window.location.href = `/userview.html?name=${encodeURIComponent(name)}`;
+        const userId = data.user.id;
+        window.location.href = `/userview.html?name=${encodeURIComponent(name)}&userId=${encodeURIComponent(userId)}`;
       } catch (error) {
         message.textContent = error.message;
         message.classList.remove('text-green-600');
