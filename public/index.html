@@ -124,10 +124,15 @@
           throw new Error(data.message || 'Error al iniciar sesión');
         }
 
-        localStorage.setItem('token', data.token);
-        message.textContent = 'Inicio de sesión exitoso';
-        message.classList.remove('text-red-600');
-        message.classList.add('text-green-600');
+        console.log(data)
+
+        localStorage.setItem('token', data.token);        
+        // message.textContent = 'Inicio de sesión exitoso';
+        // message.classList.remove('text-red-600');
+        // message.classList.add('text-green-600');
+
+        const name = data.user.name;
+        window.location.href = `/userview.html?name=${encodeURIComponent(name)}`;
       } catch (error) {
         message.textContent = error.message;
         message.classList.remove('text-green-600');

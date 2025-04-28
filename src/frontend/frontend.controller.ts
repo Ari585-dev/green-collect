@@ -18,4 +18,9 @@ export class FrontendController {
   getRegister(@Res() res: Response) {
     return res.sendFile(join(__dirname, '..', '..', 'public', 'index.html'));
   }
+
+  @Get('/userview')
+  getView(@Res() res: Response) {
+    return res.sendFile(join(__dirname, '..', '..', 'public', 'userview.html'));
+  }
 }
