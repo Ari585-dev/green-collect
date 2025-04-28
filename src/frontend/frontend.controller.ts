@@ -1,4 +1,4 @@
-import { Controller, Get, Res } from '@nestjs/common';
+import { Controller, Get, Res, UseGuards} from '@nestjs/common';
 import { Response } from 'express';
 import { join } from 'path';
 
@@ -20,6 +20,7 @@ export class FrontendController {
   }
 
   @Get('/userview')
+
   getView(@Res() res: Response) {
     return res.sendFile(join(__dirname, '..', '..', 'public', 'userview.html'));
   }
