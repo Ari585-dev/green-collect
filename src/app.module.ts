@@ -7,6 +7,7 @@ import { DatabaseModule } from './database/database.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { FrontendModule } from './frontend/frontend.module';
 import { RequestsModule } from './modules/requests/requests.module';
+import { ReportsModule } from './modules/reports/reports.module';
 
 @Module({
   imports: [
@@ -17,7 +18,8 @@ import { RequestsModule } from './modules/requests/requests.module';
     DatabaseModule,
     AuthModule,
     FrontendModule,
-    RequestsModule
+    RequestsModule,
+    ReportsModule
   ],
   controllers: [NotificationsController],
   providers: [],

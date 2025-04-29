@@ -3,15 +3,16 @@ import { connection } from '../../config/database.connection'; // tu conexión M
 
 @Injectable()
 export class ReportsService {
-    async getMyRequests(userId: number) {
-        const [requests] = await connection.promise().query(
-          `SELECT id, user_id, residue_type, company_name, scheduled_date, status, weight_kg 
-           FROM collection_requests 
-           WHERE user_id = ? 
-           ORDER BY scheduled_date DESC`,
-          [userId]
-        ) as any[];
+  async getMyReport(userId: number, startDate: string, endDate: string) {
     
-        return requests;
-      }
+    const [requests] = await connection.promise().query(
+      `SELECT scheduled_date, status, weight_kg, residue_type, company_name, weight_kg as points
+       FROM collection_requests 
+       WHERE user_id = ? AND scheduled_date between ? and ?
+       ORDER BY scheduled_date DESC`,
+      [userId, startDate, endDate]
+    ) as any[];
+
+    return requests;
+  }
 }
