@@ -19,17 +19,33 @@ export class RequestsController {
     }
   }
 
-  @Get('my')
-  async getMyRequests(@Req() req: Request, @Res() res: Response) {
-    try {
-      const userId = req.query.user_id as string;
-      if (!userId) {
-        throw new Error('Debe proporcionar el ID de usuario (user_id)');
+  // @Get('my')
+  // async getMyRequests(@Req() req: Request, @Res() res: Response) {
+  //   try {
+  //     const userId = req.query.user_id as string;
+  //     if (!userId) {
+  //       throw new Error('Debe proporcionar el ID de usuario (user_id)');
+  //     }
+  //     const result = await this.requestsService.getMyRequests(Number(userId));
+  //     return res.status(200).json(result);
+  //   } catch (error) {
+  //     return res.status(400).json({ message: error.message });
+  //   }
+  // }
+
+  @Post('my')
+    async getMyRequests(@Body() body: any, @Res() res: Response) {
+      console.log('Body:', body);
+      try {
+        const userId = body.user_id;
+        
+        if (!userId) {
+          throw new Error('Debe proporcionar el ID de usuario (user_id)');
+        }
+        const result = await this.requestsService.getMyRequests(Number(userId), String(body.startDate), String(body.endDate));
+        return res.status(200).json(result);
+      } catch (error) {
+        return res.status(400).json({ message: error.message });
       }
-      const result = await this.requestsService.getMyRequests(Number(userId));
-      return res.status(200).json(result);
-    } catch (error) {
-      return res.status(400).json({ message: error.message });
-    }
-  }
+    }     
 }

@@ -40,13 +40,29 @@ export class RequestsService {
     return { message: 'Solicitud de recolección creada exitosamente y mensaje enviado' };
   }
 
-  async getMyRequests(userId: number) {
+  async getMyRequestsOriginal(userId: number) {
     const [requests] = await connection.promise().query(
       `SELECT id, user_id, residue_type, company_name, scheduled_date, status, weight_kg 
        FROM collection_requests 
        WHERE user_id = ? 
        ORDER BY scheduled_date DESC`,
       [userId]
+    ) as any[];
+
+    return requests;
+  }
+
+  async getMyRequests(userId: number, startDate: string, endDate: string) {
+    console.log('User ID:', userId);
+    console.log('Start Date:', startDate);
+    console.log('End Date:', endDate);
+    
+    const [requests] = await connection.promise().query(
+      `SELECT scheduled_date, status, weight_kg, residue_type, company_name, weight_kg as points
+       FROM collection_requests 
+       WHERE user_id = ? AND scheduled_date between ? and ?
+       ORDER BY scheduled_date DESC`,
+      [userId, startDate, endDate]
     ) as any[];
 
     return requests;

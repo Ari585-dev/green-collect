@@ -99,14 +99,90 @@
     const name = urlParams.get('name');
     const userId = urlParams.get('userId');
 
-    // console.log('😸', userId);  
+    // console.log('😸', userId);
+
+    const form = document.getElementById('reportForm');
 
     toBackBtn.addEventListener('click', () => {
       window.location.href = `/userview.html?name=${encodeURIComponent(name)}&userId=${encodeURIComponent(userId)}`;
     });
 
-    // form.addEventListener('submit', async (e) => {      
-    // });
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const startDate = document.getElementById('startDate').value;
+      const endDate = document.getElementById('endDate').value;
+
+      const requestData = {
+        user_id: Number(userId),
+        startDate: startDate,
+        endDate: endDate
+      };
+
+      // console.log('😸', requestData);
+
+      try {
+        const response = await fetch('/requests/my', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(requestData)
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          // message.textContent = '✅ ¡Recolección programada exitosamente!';
+          // crea una tabla dentro de message que tenga los siguentes campos: Fecha Programada, Peso, Tipo de residuo, Nombre de la empresa, Puntos
+          const table = document.createElement('table');
+          table.className = 'min-w-full bg-white border border-gray-300 mt-4';
+          const thead = document.createElement('thead');
+          thead.className = 'bg-gray-200';
+          const headerRow = document.createElement('tr');
+          const headers = ['Fecha Programada', 'Peso (kg)', 'Tipo de Residuo', 'Nombre de la Empresa', 'Puntos'];
+
+          headers.forEach(header => {
+            const th = document.createElement('th');
+            th.className = 'px-4 py-2 text-left text-gray-600 font-semibold';
+            th.textContent = header;
+            headerRow.appendChild(th);
+          });
+          thead.appendChild(headerRow);
+          table.appendChild(thead);
+          const tbody = document.createElement('tbody');
+
+          data.forEach(request => {
+            const formattedScheduledDate = new Date(request.scheduled_date).toISOString().slice(0, 19).replace('T', ' ');
+            const row = document.createElement('tr');
+            const cells = [
+              formattedScheduledDate,
+              request.weight_kg,
+              request.residue_type,
+              request.company_name,
+              request.points
+            ];
+            cells.forEach(cell => {
+              const td = document.createElement('td');
+              td.className = 'border px-4 py-2';
+              td.textContent = cell;
+              row.appendChild(td);
+            });
+            tbody.appendChild(row);
+          });
+          table.appendChild(tbody);
+          message.innerHTML = ''; // Limpiar el contenido anterior
+          message.appendChild(table);
+
+          form.reset();
+        } else {
+          message.textContent = `❌ Error: ${data.message}`;
+          message.className = 'text-red-600 mt-3 text-center text-sm';
+        }
+      } catch (error) {
+        message.textContent = `❌ Error en la conexión: ${error.message}`;
+        message.className = 'text-red-600 mt-3 text-center text-sm';
+      }
+    });
   </script>
 </body>
 </html>
